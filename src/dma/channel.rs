@@ -165,7 +165,11 @@ impl<'d> Channel<'d> {
         self.info.regs.channel(channel).xfercfg().write(|w| unsafe {
             w.cfgvalid().set_bit();
             w.clrtrig().set_bit();
-            w.reload().clear_bit();
+            if options.is_continuous {
+                w.reload().enabled();
+            } else {
+                w.reload().disabled();
+            }
             w.setinta().set_bit();
             w.width().bits(options.width.into());
             if dir == Direction::PeripheralToMemory {
