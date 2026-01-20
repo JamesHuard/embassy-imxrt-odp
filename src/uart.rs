@@ -931,6 +931,7 @@ impl<'a> UartRx<'a, Async> {
 
                     let stat = self.info.regs.stat().read();
                     let fifointstat = self.info.regs.fifointstat().read();
+                    let fifointstat = self.info.regs.fifointstat().read();
 
                     self.info.regs.stat().write(|w| {
                         w.framerrint()
